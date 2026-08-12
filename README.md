@@ -1,7 +1,78 @@
 # AI Skills
 
-Bộ sưu tập **Skills** dùng chung cho AI Agent (Claude Code / PHÈN DEV).
-Mỗi skill là một thư mục trong `skills/`, chứa file `SKILL.md` mô tả cách agent thực hiện một tác vụ cụ thể.
+Bộ sưu tập **Skills** dùng chung cho các AI coding agent (Claude Code, Codex CLI...).
+Mỗi skill là một thư mục chứa file `SKILL.md` mô tả cách agent thực hiện một tác vụ cụ thể — agent chỉ nạp skill khi thực sự cần, nên cài nhiều cũng không nặng context.
+
+Repo mở để ai cũng clone về dùng được. Cứ lấy nguyên bộ hoặc nhặt riêng skill mình cần.
+
+## Cài đặt
+
+### Bước 0 — Clone repo
+
+```bash
+git clone https://github.com/husble/ai-skills.git
+cd ai-skills
+```
+
+### Thư mục skill global
+
+| Agent | macOS / Linux | Windows |
+|---|---|---|
+| Claude Code | `~/.claude/skills/` | `%USERPROFILE%\.claude\skills\` |
+| Codex CLI | `~/.codex/skills/` | `%USERPROFILE%\.codex\skills\` |
+
+Cài vào đây là skill dùng được ở **mọi project**. Nếu chỉ muốn dùng trong 1 project, đặt vào `.claude/skills/` hoặc `.codex/skills/` ngay trong project đó.
+
+### Cách 1 — Copy (đơn giản, bản tĩnh)
+
+**macOS / Linux**
+
+```bash
+# Claude Code
+mkdir -p ~/.claude/skills
+cp -r skills/* ~/.claude/skills/
+
+# Codex CLI
+mkdir -p ~/.codex/skills
+cp -r skills/* ~/.codex/skills/
+```
+
+Chỉ cài 1 skill: đổi `skills/*` thành `skills/git-commit-message`.
+
+**Windows (PowerShell)**
+
+```powershell
+# Claude Code
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills"
+Copy-Item -Recurse -Force .\skills\* "$env:USERPROFILE\.claude\skills\"
+
+# Codex CLI
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.codex\skills"
+Copy-Item -Recurse -Force .\skills\* "$env:USERPROFILE\.codex\skills\"
+```
+
+### Cách 2 — Symlink (tự cập nhật theo `git pull`)
+
+Trỏ thẳng vào repo, sau này `git pull` là skill tự mới, khỏi copy lại.
+
+**macOS / Linux**
+
+```bash
+ln -s "$(pwd)/skills/git-commit-message" ~/.claude/skills/git-commit-message
+```
+
+**Windows (PowerShell — chạy với quyền Administrator hoặc bật Developer Mode)**
+
+```powershell
+New-Item -ItemType SymbolicLink `
+  -Path "$env:USERPROFILE\.claude\skills\git-commit-message" `
+  -Target "$PWD\skills\git-commit-message"
+```
+
+### Sau khi cài
+
+- **Khởi động lại session** của agent — skill được nạp lúc start, session đang mở sẽ không thấy.
+- Skill nào cần thư viện (Node / Python) thì vào thư mục skill đó tự cài: `npm install` hoặc `pip install -r requirements.txt`. Repo cố tình **không** commit `node_modules/`, `.venv/` để giữ cho nhẹ.
 
 ## Cấu trúc
 
@@ -12,7 +83,6 @@ skills/
 ```
 
 Nếu skill cần script hỗ trợ (Node / Python), đặt luôn trong thư mục skill đó.
-**Lưu ý:** thư viện (`node_modules/`, `.venv/`...) KHÔNG được commit — pull code về rồi tự cài để repo nhẹ.
 
 ## Danh sách Skills
 
