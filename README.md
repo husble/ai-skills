@@ -5,6 +5,24 @@ Mỗi skill là một thư mục chứa file `SKILL.md` mô tả cách agent th�
 
 Repo mở để ai cũng tải về dùng được. Cứ lấy nguyên bộ hoặc nhặt riêng skill mình cần.
 
+## Danh sách Skills
+
+### `git-commit-message`
+> Generate standardized commit messages or PR title using Conventional Commits
+
+Phân tích code changes (diff, files, summary), xác định intent chính, rồi sinh ra commit message chuẩn **Conventional Commits** (`<type>(scope): <description>`).
+Ràng buộc: description tối đa 50 ký tự, thì hiện tại, lowercase, không dấu chấm cuối. Output đúng 1 message, không giải thích.
+
+## Cấu trúc
+
+```
+skills/
+└── <ten-skill>/
+    └── SKILL.md      # frontmatter (name, description) + hướng dẫn chi tiết
+```
+
+Nếu skill cần script hỗ trợ (Node / Python), đặt luôn trong thư mục skill đó.
+
 ## Cài đặt
 
 ### Bước 1 — Tải code về
@@ -92,24 +110,6 @@ Cài lẻ 1 skill: đổi `skills/*` thành `skills/git-commit-message`.
 
 - Chỉ muốn dùng skill trong 1 project cụ thể (không phải toàn máy): đặt vào `.claude/skills/` hoặc `.codex/skills/` ngay trong thư mục project đó.
 - Skill nào cần thư viện (Node / Python) thì vào thư mục skill đó tự cài: `npm install` hoặc `pip install -r requirements.txt`. Repo cố tình **không** kèm sẵn `node_modules/`, `.venv/` để giữ cho nhẹ.
-
-## Cấu trúc
-
-```
-skills/
-└── <ten-skill>/
-    └── SKILL.md      # frontmatter (name, description) + hướng dẫn chi tiết
-```
-
-Nếu skill cần script hỗ trợ (Node / Python), đặt luôn trong thư mục skill đó.
-
-## Danh sách Skills
-
-### `git-commit-message`
-> Generate standardized commit messages or PR title using Conventional Commits
-
-Phân tích code changes (diff, files, summary), xác định intent chính, rồi sinh ra commit message chuẩn **Conventional Commits** (`<type>(scope): <description>`).
-Ràng buộc: description tối đa 50 ký tự, thì hiện tại, lowercase, không dấu chấm cuối. Output đúng 1 message, không giải thích.
 
 ## Cách thêm skill mới
 
