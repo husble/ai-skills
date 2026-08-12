@@ -3,41 +3,76 @@
 Bộ sưu tập **Skills** dùng chung cho các AI coding agent (Claude Code, Codex CLI...).
 Mỗi skill là một thư mục chứa file `SKILL.md` mô tả cách agent thực hiện một tác vụ cụ thể — agent chỉ nạp skill khi thực sự cần, nên cài nhiều cũng không nặng context.
 
-Repo mở để ai cũng clone về dùng được. Cứ lấy nguyên bộ hoặc nhặt riêng skill mình cần.
+Repo mở để ai cũng tải về dùng được. Cứ lấy nguyên bộ hoặc nhặt riêng skill mình cần.
 
 ## Cài đặt
 
-### Bước 0 — Clone repo
+### Bước 1 — Tải code về
 
-```bash
-git clone https://github.com/husble/ai-skills.git
-cd ai-skills
-```
+Chọn 1 trong 2 cách:
 
-### Thư mục skill global
+- **Cách dễ (không cần biết lệnh):** mở https://github.com/husble/ai-skills → bấm nút xanh **Code** → **Download ZIP** → giải nén file vừa tải.
+- **Cách nhanh (nếu máy đã có git):**
+  ```bash
+  git clone https://github.com/husble/ai-skills.git
+  ```
+
+Sau khi tải xong, bên trong sẽ có thư mục `skills/` — mỗi thư mục con là một skill.
+
+### Bước 2 — Mở thư mục skill của agent
+
+Đây là nơi agent tìm skill. Cài vào đây thì dùng được ở **mọi project**.
+
+**Đường dẫn theo từng agent / hệ điều hành:**
 
 | Agent | macOS / Linux | Windows |
 |---|---|---|
-| Claude Code | `~/.claude/skills/` | `%USERPROFILE%\.claude\skills\` |
-| Codex CLI | `~/.codex/skills/` | `%USERPROFILE%\.codex\skills\` |
+| Claude Code | `~/.claude/skills` | `%USERPROFILE%\.claude\skills` |
+| Codex CLI | `~/.codex/skills` | `%USERPROFILE%\.codex\skills` |
 
-Cài vào đây là skill dùng được ở **mọi project**. Nếu chỉ muốn dùng trong 1 project, đặt vào `.claude/skills/` hoặc `.codex/skills/` ngay trong project đó.
+**Mở thư mục đó bằng giao diện, khỏi gõ lệnh:**
 
-### Cách 1 — Copy (đơn giản, bản tĩnh)
+- **macOS:** mở **Finder** → bấm `Cmd + Shift + G` → dán đường dẫn ở bảng trên (ví dụ `~/.claude/skills`) → Enter.
+  *Thư mục bắt đầu bằng dấu chấm bị ẩn mặc định — muốn nhìn thấy thì bấm `Cmd + Shift + .`*
+- **Windows:** mở **File Explorer** → dán đường dẫn vào thanh địa chỉ trên cùng (ví dụ `%USERPROFILE%\.claude\skills`) → Enter.
+
+Nếu chưa có thư mục `skills` thì tự tạo một thư mục mới, đặt đúng tên `skills`.
+
+### Bước 3 — Copy skill vào
+
+Copy **nguyên thư mục skill** từ `skills/` trong repo vừa tải, paste vào thư mục vừa mở ở Bước 2.
+
+> ⚠️ Copy cả folder (ví dụ nguyên folder `git-commit-message`), **không** chỉ copy riêng file `SKILL.md` bên trong.
+
+Kết quả đúng sẽ trông như này:
+
+```
+~/.claude/skills/
+└── git-commit-message/
+    └── SKILL.md
+```
+
+Muốn cài hết thì copy tất cả thư mục con trong `skills/`. Muốn cài lẻ thì chỉ copy folder mình cần.
+
+### Bước 4 — Khởi động lại agent
+
+Tắt Claude Code / Codex rồi mở lại. Skill chỉ được nạp lúc khởi động, session đang mở sẽ không thấy skill mới.
+
+---
+
+### Dành cho bạn nào rành terminal (hoặc nhờ AI tự cài)
+
+Copy nguyên block dưới đây chạy thẳng, hoặc dán cho AI agent bảo nó cài giúp:
 
 **macOS / Linux**
 
 ```bash
 # Claude Code
-mkdir -p ~/.claude/skills
-cp -r skills/* ~/.claude/skills/
+mkdir -p ~/.claude/skills && cp -r skills/* ~/.claude/skills/
 
 # Codex CLI
-mkdir -p ~/.codex/skills
-cp -r skills/* ~/.codex/skills/
+mkdir -p ~/.codex/skills && cp -r skills/* ~/.codex/skills/
 ```
-
-Chỉ cài 1 skill: đổi `skills/*` thành `skills/git-commit-message`.
 
 **Windows (PowerShell)**
 
@@ -51,28 +86,12 @@ New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.codex\skills"
 Copy-Item -Recurse -Force .\skills\* "$env:USERPROFILE\.codex\skills\"
 ```
 
-### Cách 2 — Symlink (tự cập nhật theo `git pull`)
+Cài lẻ 1 skill: đổi `skills/*` thành `skills/git-commit-message`.
 
-Trỏ thẳng vào repo, sau này `git pull` là skill tự mới, khỏi copy lại.
+### Lưu ý
 
-**macOS / Linux**
-
-```bash
-ln -s "$(pwd)/skills/git-commit-message" ~/.claude/skills/git-commit-message
-```
-
-**Windows (PowerShell — chạy với quyền Administrator hoặc bật Developer Mode)**
-
-```powershell
-New-Item -ItemType SymbolicLink `
-  -Path "$env:USERPROFILE\.claude\skills\git-commit-message" `
-  -Target "$PWD\skills\git-commit-message"
-```
-
-### Sau khi cài
-
-- **Khởi động lại session** của agent — skill được nạp lúc start, session đang mở sẽ không thấy.
-- Skill nào cần thư viện (Node / Python) thì vào thư mục skill đó tự cài: `npm install` hoặc `pip install -r requirements.txt`. Repo cố tình **không** commit `node_modules/`, `.venv/` để giữ cho nhẹ.
+- Chỉ muốn dùng skill trong 1 project cụ thể (không phải toàn máy): đặt vào `.claude/skills/` hoặc `.codex/skills/` ngay trong thư mục project đó.
+- Skill nào cần thư viện (Node / Python) thì vào thư mục skill đó tự cài: `npm install` hoặc `pip install -r requirements.txt`. Repo cố tình **không** kèm sẵn `node_modules/`, `.venv/` để giữ cho nhẹ.
 
 ## Cấu trúc
 
