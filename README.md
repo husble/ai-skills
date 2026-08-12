@@ -13,15 +13,30 @@ Repo mở để ai cũng tải về dùng được. Cứ lấy nguyên bộ ho�
 Phân tích code changes (diff, files, summary), xác định intent chính, rồi sinh ra commit message chuẩn **Conventional Commits** (`<type>(scope): <description>`).
 Ràng buộc: description tối đa 50 ký tự, thì hiện tại, lowercase, không dấu chấm cuối. Output đúng 1 message, không giải thích.
 
+### `new-pr`
+> Skill tự review code và tạo Pull Request mới
+
+Gõ `/new-pr <branch>` để tạo PR từ nhánh hiện tại sang branch đích, nhưng phải qua **2 chốt chặn bắt buộc dừng**:
+
+- **Chốt 1** — còn file chưa commit thì dừng, liệt kê ra và hỏi user (commit / stash / kệ), tuyệt đối không tự xử lý
+- **Chốt 2** — tự review diff theo checklist 🔴 HIGH / 🟡 MEDIUM / 🔵 LOW; dính HIGH hoặc MEDIUM là dừng để user quyết sửa trước hay ghi vào PR description
+
+PR title theo Conventional Commits (tiếng Anh), description theo template tiếng Việt (Mục đích · Thay đổi chính · Ảnh hưởng · Cách test · Lưu ý).
+Không tự commit / push / stash / sửa code — mọi thao tác ghi đều hỏi trước.
+
+**Yêu cầu:** cài sẵn [`gh` CLI](https://cli.github.com/) và đã chạy `gh auth login`.
+Skill kèm script precheck cho cả 2 hệ: `precheck.sh` (macOS/Linux) và `precheck.ps1` (Windows PowerShell) — chạy được native, không cần WSL hay Git Bash.
+
 ## Cấu trúc
 
 ```
 skills/
 └── <ten-skill>/
-    └── SKILL.md      # frontmatter (name, description) + hướng dẫn chi tiết
+    ├── SKILL.md          # frontmatter (name, description) + hướng dẫn chi tiết
+    └── scripts/          # (tuỳ chọn) script hỗ trợ — bash / powershell / node / python
 ```
 
-Nếu skill cần script hỗ trợ (Node / Python), đặt luôn trong thư mục skill đó.
+Skill nào cần script thì đặt luôn trong thư mục skill đó. Nếu skill có chạy script shell, nên kèm cả bản `.sh` lẫn `.ps1` để user Windows dùng được — xem `new-pr` làm mẫu.
 
 ## Cài đặt
 
