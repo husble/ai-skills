@@ -27,6 +27,28 @@ Không tự commit / push / stash / sửa code — mọi thao tác ghi đều h�
 **Yêu cầu:** cài sẵn [`gh` CLI](https://cli.github.com/) và đã chạy `gh auth login`.
 Skill kèm script precheck cho cả 2 hệ: `precheck.sh` (macOS/Linux) và `precheck.ps1` (Windows PowerShell) — chạy được native, không cần WSL hay Git Bash.
 
+### `gen-html`
+> Tạo report hoặc tài liệu bằng HTML theo template UI có sẵn
+
+Dựng file report / tài liệu HTML **self-contained — 1 file duy nhất**, CSS + JS inline, không CDN, không framework. Mở bằng browser là chạy, gửi qua chat hay up static host đều được.
+
+Template lo sẵn: sidebar có scroll-spy, progress bar theo scroll, hero + stat, card / callout / timeline / metric, copy-to-clipboard kèm toast, responsive 3 breakpoint, `@media print` để in ra PDF, skip-link + `aria-label` cho accessibility.
+Có **4 palette màu** (`green` mặc định · `blue` · `purple` · `orange`), tài liệu ngắn dưới 3 section thì tự bỏ sidebar.
+
+**Yêu cầu:** không cần gì cả — thuần HTML/CSS/JS.
+
+### `gen-images`
+> Gen ảnh bằng AI — text-to-image và image-to-image qua Gemini hoặc OpenAI
+
+Một script Node **zero-dependency** (dùng native `fetch`, không cài package nào) chạy được cả 2 chế độ:
+
+- **text-to-image** — chỉ cần `--prompt`
+- **image-to-image** — thêm `--image <path>` (lặp nhiều lần được) để edit ảnh hoặc ghép nhiều ảnh nguồn
+
+Chỉnh được số lượng ảnh, tỉ lệ khung (`--aspect` cho Gemini / `--size` cho OpenAI), model, thư mục output. Có `--json` để agent parse kết quả. Tự retry khi dính 429/5xx, ảnh nào lỗi thì skip chứ không đánh rơi cả batch.
+
+**Yêu cầu:** Node.js 18+ và API key đặt trong biến môi trường `GEMINI_API_SKILL` hoặc `OPENAI_API_SKILL` (hướng dẫn set cho macOS/Linux và Windows nằm trong `SKILL.md`).
+
 ## Cấu trúc
 
 ```
