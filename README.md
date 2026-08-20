@@ -49,6 +49,18 @@ Chỉnh được số lượng ảnh, tỉ lệ khung (`--aspect` cho Gemini / `
 
 **Yêu cầu:** Node.js 18+ và API key đặt trong biến môi trường `GEMINI_API_SKILL` hoặc `OPENAI_API_SKILL` (hướng dẫn set cho macOS/Linux và Windows nằm trong `SKILL.md`).
 
+### `shared-files`
+> Upload file lên AWS S3 và trả về link public
+
+Đẩy file local lên bucket S3 (dưới prefix `shared/`) rồi in ra URL công khai — tiện để share file, host asset, hoặc gửi link cho người khác.
+
+Script Node **zero-dependency**: tự ký request bằng **AWS Signature V4**, không cần `aws-sdk`, không `npm install`.
+Config đọc từ biến môi trường trước, không có thì fallback sang file `.env` (tìm cạnh script → đi ngược lên gốc project → thư mục hiện tại). Biến đã `export` ở shell luôn thắng `.env`.
+
+Link trả về mặc định là URL S3 path-style dựng từ bucket + region, nên cài xong là chạy — chỉ set `SHARED_CDN_BASE_URL` khi anh serve bucket qua CDN domain riêng.
+
+**Yêu cầu:** Node.js, một bucket S3 và 4 biến `SHARED_AWS_ACCESS_KEY_ID` · `SHARED_AWS_SECRET_ACCESS_KEY` · `SHARED_AWS_S3_BUCKET` · `SHARED_AWS_REGION`.
+
 ## Cấu trúc
 
 ```
