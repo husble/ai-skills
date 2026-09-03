@@ -30,3 +30,7 @@ dist/
 build/
 tmp/
 *.log
+
+# tech-debt cua skill pull-request-review — du lieu noi bo, khong commit
+skills/pull-request-review/references/
+pr-review-tech-debt/
