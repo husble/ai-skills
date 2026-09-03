@@ -27,6 +27,20 @@ Không tự commit / push / stash / sửa code — mọi thao tác ghi đều h�
 **Yêu cầu:** cài sẵn [`gh` CLI](https://cli.github.com/) và đã chạy `gh auth login`.
 Skill kèm script precheck cho cả 2 hệ: `precheck.sh` (macOS/Linux) và `precheck.ps1` (Windows PowerShell) — chạy được native, không cần WSL hay Git Bash.
 
+### `pull-request-review`
+> Review Pull Request đã mở trên GitHub, feedback có severity
+
+Đọc PR qua `gh` CLI (metadata + diff + comment cũ) rồi trả review theo 7 mục: tóm tắt chức năng cho người không đọc code · overview · file thay đổi · code quality · issues phân **High/Medium/Low** · test case đề xuất · nợ kỹ thuật.
+
+Phần đáng giá nhất là bộ **hiệu chỉnh severity** — chống thói quen thổi phồng mức độ: bắt buộc trace tới nơi giá trị được tiêu thụ trước khi gán Medium+, không bump severity chỉ vì endpoint "nhạy cảm", phân biệt lệch status code với bypass thật. Kèm **pre-merge gate** ép kiểm đủ file thay đổi và verify import mới có tồn tại trên branch không.
+
+Tự theo dõi **tech debt** theo từng repo (chỉ lưu Medium trở lên), đánh dấu `done` khi PR sau fix được issue cũ.
+
+**Yêu cầu:** [`gh` CLI](https://cli.github.com/) đã `gh auth login`. Không tự post comment lên GitHub — in ra cho bạn duyệt trước, chỉ post khi bạn yêu cầu.
+Tech debt lưu ngoài thư mục skill (`~/.claude/pr-review-tech-debt/`, đổi được qua env `PR_REVIEW_DEBT_DIR`) để không lẫn vào repo.
+
+> Khác với `new-pr`: skill đó review **trước khi tạo** PR mới; skill này review PR **đã có** trên GitHub.
+
 ### `gen-html`
 > Tạo report hoặc tài liệu bằng HTML theo template UI có sẵn
 
