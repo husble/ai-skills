@@ -63,6 +63,17 @@ Chỉnh được số lượng ảnh, tỉ lệ khung (`--aspect` cho Gemini / `
 
 **Yêu cầu:** Node.js 18+ và API key đặt trong biến môi trường `GEMINI_API_SKILL` hoặc `OPENAI_API_SKILL` (hướng dẫn set cho macOS/Linux và Windows nằm trong `SKILL.md`).
 
+### `gen-videos`
+> Gen video bằng AI — text-to-video và image-to-video qua Google Veo
+
+Tạo video từ mô tả bằng chữ, hoặc **làm ảnh tĩnh chuyển động** (đưa thêm đường dẫn ảnh vào là thành image-to-video).
+
+Video render lâu, nên script submit job xong sẽ **tự poll mỗi 10s** cho tới khi xong rồi tải file MP4 về — không phải ngồi canh.
+Chỉnh được model (`VEO_MODEL`) và tỉ lệ khung (`VEO_ASPECT_RATIO`: `16:9` hoặc `9:16`). Mặc định `veo-3.0-generate-001` có kèm audio; key/region nào chưa hỗ trợ Veo 3 thì hạ xuống `veo-2.0-generate-001` (không audio).
+
+**Yêu cầu:** Node.js 18+, API key ở biến `GEMINI_API_SKILL` (dùng chung với `gen-images`), và phải chạy `npm install` trong thư mục `scripts/` của skill.
+⚠️ Veo **chỉ chạy trên tài khoản Google AI Studio đã bật billing** — free tier không có video.
+
 ### `shared-files`
 > Upload file lên AWS S3 và trả về link public
 
