@@ -81,7 +81,7 @@ JS vẫn chạy bình thường — phần menu tự no-op vì `menuButton` là 
 
 ## Nguyên tắc nội dung
 
-- **Ưu tiên list / card, TRÁNH bảng** — bảng rất khó đọc trên điện thoại. Dùng `card`, `metric`, `precedence`, `timeline` thay cho table.
+- **Bảng chỉ dùng khi dữ liệu dạng ma trận nhiều cột** — còn lại ưu tiên `card`, `metric`, `precedence`, `timeline` cho dễ đọc.
 - **Tiếng Việt**, keyword kỹ thuật giữ tiếng Anh.
 - **Số liệu phải có nguồn** — dùng `source-box` ghi rõ nguồn + thời điểm. Không phỏng đoán.
 - Hero: 3-4 `hero-stat` là đẹp nhất. Không có số liệu thì bỏ cả khối.

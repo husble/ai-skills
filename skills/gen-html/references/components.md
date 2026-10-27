@@ -2,6 +2,10 @@
 
 Markup của từng component. CSS đã có sẵn trong `template.html` — chỉ cần copy markup vào.
 
+> ⚠️ **Số lượng con phải khớp CSS.** Vài component là CSS Grid với số cột cố định
+> (`precedence-row`, `timeline-item`, `metric`, `callout`). Thêm/bớt/bọc thêm `<div>` là
+> layout lệch ngay. Mỗi component dưới đây ghi rõ **số con trực tiếp** bắt buộc.
+
 ---
 
 ## Bộ mở đầu section (luôn dùng bộ 3 này)
@@ -30,6 +34,8 @@ Markup của từng component. CSS đã có sẵn trong `template.html` — ch�
   </article>
 </div>
 ```
+Số cột **cố định** theo class: `.two` = 2, `.three` = 3, `.four` = 4. Đặt đúng số card cho
+khớp, thiếu card thì hàng bị hụt (ví dụ 2 card trong `.grid.three` → trống 1 ô).
 
 ## Badge — 4 biến thể
 
@@ -42,20 +48,26 @@ Markup của từng component. CSS đã có sẵn trong `template.html` — ch�
 
 ## Callout — 3 mức
 
+**2 con trực tiếp:** ô icon, rồi ô nội dung.
+
 ```html
 <div class="callout">            <!-- thông tin (brand) -->
   <div aria-hidden="true">💡</div>
   <div>
     <strong>Tiêu đề</strong>
-    <p>Nội dung. Có thể dùng <code>inline code</code>.</p>
+    <p>Nội dung. Có thể dùng <code>inline code</code> và <strong>nhấn mạnh</strong>.</p>
   </div>
 </div>
 
 <div class="callout warning"> ... </div>   <!-- ⚠️ vàng/cam -->
 <div class="callout danger">  ... </div>   <!-- 🚫 đỏ -->
 ```
+`.callout strong` là `display: block` để làm **tiêu đề** callout. `<strong>` nhấn mạnh nằm
+trong `<p>`/`<li>` đã được template trả lại `inline`, nên dùng thoải mái.
 
 ## Timeline — mốc thời gian / quy trình theo bước
+
+**3 con trực tiếp mỗi item:** dot, time, content.
 
 ```html
 <div class="timeline">
@@ -72,6 +84,9 @@ Markup của từng component. CSS đã có sẵn trong `template.html` — ch�
 ```
 
 ## Architecture — sơ đồ khối hệ thống
+
+Grid `auto-fit`, mỗi khối tối thiểu 138px → **số khối bao nhiêu cũng đầy hàng**, tự xuống
+dòng khi hết chỗ. Đẹp nhất là 3-5 khối.
 
 ```html
 <div class="architecture">
@@ -90,20 +105,24 @@ Markup của từng component. CSS đã có sẵn trong `template.html` — ch�
 
 ## Precedence — thứ tự ưu tiên, có xếp hạng
 
+**3 con TRỰC TIẾP mỗi row:** `.rank`, `<strong>`, `<span>` — grid là `42px 190px 1fr`.
+**Không bọc `strong` + `span` vào một `<div>`**, làm vậy cột `1fr` bỏ trống và chữ bị nén
+vào 190px.
+
 ```html
 <div class="precedence">
   <div class="precedence-row">
     <div class="rank">1</div>
-    <div>
-      <strong>Mục ưu tiên cao nhất</strong>
-      <span>Giải thích ngắn vì sao đứng đầu.</span>
-    </div>
+    <strong>Mục ưu tiên cao nhất</strong>
+    <span>Giải thích ngắn vì sao đứng đầu.</span>
   </div>
   <!-- rank 2, 3, 4... -->
 </div>
 ```
 
 ## Loop — vòng lặp / chu trình
+
+Grid `auto-fit`, mỗi step tối thiểu 150px → số step nào cũng đầy hàng. **2 con** mỗi step.
 
 ```html
 <div class="loop">
@@ -120,6 +139,8 @@ Markup của từng component. CSS đã có sẵn trong `template.html` — ch�
 
 ## Metric — số liệu xếp dọc
 
+**2 con trực tiếp** mỗi metric — grid `140px 1fr`: số bên trái, nhãn bên phải.
+
 ```html
 <div class="metric-stack">
   <div class="metric">
@@ -130,6 +151,21 @@ Markup của từng component. CSS đã có sẵn trong `template.html` — ch�
     <strong>0.82 ms</strong>
     <span>Latency truy vấn</span>
   </div>
+</div>
+```
+
+## Hero stat — số liệu nổi bật trên hero
+
+Grid `auto-fit`, tối thiểu 150px → 2-4 cái đều đầy hàng.
+**2 con** mỗi stat.
+
+```html
+<div class="hero-stats" aria-label="Số liệu chính">
+  <div class="hero-stat">
+    <strong>34,9s</strong>
+    <span>Nhãn mô tả số này</span>
+  </div>
+  <!-- 2-4 cái là đẹp nhất -->
 </div>
 ```
 
@@ -183,7 +219,7 @@ Nhấn từ khoá trong prompt: `<span class="token">--flag</span>`
   </table>
 </div>
 ```
-⚠️ **Bảng rất khó đọc trên điện thoại → ưu tiên `card` / `metric` / `precedence` thay cho bảng.** Chỉ dùng bảng khi dữ liệu thực sự dạng ma trận nhiều cột và không diễn đạt cách khác được. Luôn bọc `.table-wrap` để scroll ngang trên mobile.
+Bảng chỉ thật sự hợp khi dữ liệu dạng ma trận nhiều cột. Ít cột thì `card` / `metric` / `precedence` đọc dễ hơn hẳn. Luôn bọc `.table-wrap` để bảng rộng hơn khung thì scroll ngang được.
 
 ## Source box — ghi nguồn cuối tài liệu
 
@@ -202,3 +238,20 @@ Nhấn từ khoá trong prompt: `<span class="token">--flag</span>`
   Ghi chú · Ngày cập nhật
 </footer>
 ```
+
+---
+
+## Bảng tra nhanh: số con trực tiếp bắt buộc
+
+- `.callout` → **2** (ô icon, ô nội dung)
+- `.timeline-item` → **3** (`.timeline-dot`, `.timeline-time`, `.timeline-content`)
+- `.precedence-row` → **3** (`.rank`, `<strong>`, `<span>`)
+- `.metric` → **2** (`<strong>`, `<span>`)
+- `.hero-stat` → **2** (`<strong>`, `<span>`)
+- `.loop-step` → **2** (`<strong>`, `<span>`)
+- `.arch-node` → tự do (`.node-top`, `h3`, `p`)
+- `.card` → tự do (`.icon`, `.badge`, `h3`, `p`)
+
+Số cột của container:
+- **Cố định** (phải đặt đúng số phần tử): `.grid.two` = 2 · `.grid.three` = 3 · `.grid.four` = 4
+- **auto-fit** (bao nhiêu cũng đầy hàng): `.hero-stats` · `.architecture` · `.loop`
