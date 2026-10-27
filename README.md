@@ -47,7 +47,7 @@ Tech debt lưu ngoài thư mục skill (`~/.claude/pr-review-tech-debt/`, đổi
 Dựng file report / tài liệu HTML **self-contained — 1 file duy nhất**, CSS + JS inline, không CDN, không framework. Mở bằng browser là chạy, gửi qua chat hay up static host đều được.
 
 Template lo sẵn: sidebar có scroll-spy, progress bar theo scroll, hero + stat, card / callout / timeline / metric, copy-to-clipboard kèm toast, responsive 3 breakpoint, `@media print` để in ra PDF, skip-link + `aria-label` cho accessibility.
-Có **4 palette màu** (`green` mặc định · `blue` · `purple` · `orange`), tài liệu ngắn dưới 3 section thì tự bỏ sidebar.
+Phong cách **báo in trên giấy** (vintage editorial): nền giấy ngà có texture hạt, chữ serif Georgia, nhãn nhỏ sans, viền kẻ đôi. Tài liệu ngắn dưới 3 section thì tự bỏ sidebar.
 
 **Yêu cầu:** không cần gì cả — thuần HTML/CSS/JS.
 

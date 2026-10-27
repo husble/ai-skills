@@ -1,64 +1,68 @@
-# Palettes — 4 bộ màu
+# Palette — PAPER (vintage editorial)
 
-Chỉ thay khối `:root` và 2 chỗ dùng màu nền (body gradient + sidebar). **Mọi thứ khác giữ nguyên.**
+Skill chỉ còn **một bộ màu duy nhất**: giấy ngà, mực nâu đen, kiểu báo in / letterpress.
+Template đã set sẵn — **không phải làm gì thêm** khi dựng file mới.
 
-Các biến ngữ nghĩa (`--accent`, `--danger`, `--blue`, `--purple` + `-soft`) **giữ nguyên ở cả 4 palette** — chúng dùng cho badge/callout theo ý nghĩa (cảnh báo / nguy hiểm / thông tin), không phải màu thương hiệu.
+Tài liệu này để tra màu khi cần thêm thành phần mới, hoặc khi muốn chỉnh tông.
 
----
-
-## 1. GREEN (mặc định — bản gốc)
-
-```css
---bg: #f5f7f2;  --surface: #ffffff;  --surface-soft: #f0f4eb;
---ink: #15221b; --muted: #607065;    --line: #dbe3d8;
---brand: #167552; --brand-dark: #0d533a; --brand-soft: #dff4e9;
---shadow: 0 16px 50px rgba(26, 56, 40, 0.1);
-```
-- `body` gradient: `radial-gradient(circle at 90% 0%, rgba(240,161,58,.12), transparent 32%), linear-gradient(180deg,#f8faf5 0%,var(--bg) 100%)`
-- `.sidebar` nền: `linear-gradient(165deg, rgba(255,255,255,.06), transparent 42%), #123f30`
-
-## 2. BLUE
+## Bảng màu
 
 ```css
---bg: #f2f5f9;  --surface: #ffffff;  --surface-soft: #eaf0f7;
---ink: #141c26; --muted: #5d6b7d;    --line: #d7dfe9;
---brand: #2f66b2; --brand-dark: #1e4a86; --brand-soft: #e3edfb;
---shadow: 0 16px 50px rgba(24, 45, 78, 0.1);
+--bg:           #bcb5a8;   /* nền ngoài trang giấy */
+--surface:      #eee4cf;   /* mặt giấy */
+--surface-soft: #e6dbc4;   /* giấy đậm hơn một nấc */
+--ink:          #29251e;   /* mực — chữ chính */
+--muted:        #655b49;   /* chữ phụ, nhãn */
+--line:         #b9ac94;   /* đường kẻ, viền */
+--brand:        #75543c;   /* nâu nhấn — kicker, eyebrow, link */
+--brand-dark:   #553b29;   /* nâu đậm — badge, số liệu nhấn */
+--brand-soft:   #e2d5ba;   /* nền badge/callout */
+--shadow:       0 2px 2px rgba(62,52,43,.08), 0 18px 55px rgba(62,52,43,.22);
+--radius:       3px;       /* giấy gần như không bo góc */
 ```
-- `body` gradient: `radial-gradient(circle at 90% 0%, rgba(240,161,58,.10), transparent 32%), linear-gradient(180deg,#f7f9fc 0%,var(--bg) 100%)`
-- `.sidebar` nền: `linear-gradient(165deg, rgba(255,255,255,.06), transparent 42%), #16304f`
 
-## 3. PURPLE
+**Màu ngữ nghĩa** (badge/callout theo ý nghĩa, đã hạ tông cho hợp nền kem):
 
 ```css
---bg: #f6f4fa;  --surface: #ffffff;  --surface-soft: #efeaf7;
---ink: #1c1726; --muted: #6a6180;    --line: #e0d9ec;
---brand: #7256a8; --brand-dark: #513a7d; --brand-soft: #f0ebfb;
---shadow: 0 16px 50px rgba(52, 36, 84, 0.1);
+--accent: #8a6a2f;  --accent-soft: #e8dcbd;   /* cảnh báo  */
+--danger: #8c3b2f;  --danger-soft: #e7d2c6;   /* nguy hiểm */
+--blue:   #3f5d75;  --blue-soft:   #d9ddd9;   /* thông tin */
+--purple: #6a5570;  --purple-soft: #e0d6d8;   /* phụ       */
 ```
-- `body` gradient: `radial-gradient(circle at 90% 0%, rgba(240,161,58,.10), transparent 32%), linear-gradient(180deg,#faf8fd 0%,var(--bg) 100%)`
-- `.sidebar` nền: `linear-gradient(165deg, rgba(255,255,255,.06), transparent 42%), #2e2447`
-- ⚠️ Palette này thì badge `.purple` trùng brand → dùng `.blue` hoặc `.orange` để nhấn.
 
-## 4. ORANGE
+## Texture giấy
+
+Biến `--grain` tạo hạt giấy, đắp lên `.hero` và `.card`:
 
 ```css
---bg: #faf6f1;  --surface: #ffffff;  --surface-soft: #f7efe4;
---ink: #26190f; --muted: #7a685a;    --line: #ebdfd2;
---brand: #c9761b; --brand-dark: #9a5711; --brand-soft: #ffeed8;
---shadow: 0 16px 50px rgba(94, 56, 16, 0.1);
+--grain:
+  radial-gradient(rgba(89,65,42,.09) .42px, transparent .65px),
+  repeating-linear-gradient(93deg, rgba(120,97,64,.014) 0, rgba(120,97,64,.014) 1px, transparent 1px, transparent 7px);
 ```
-- `body` gradient: `radial-gradient(circle at 90% 0%, rgba(47,102,178,.10), transparent 32%), linear-gradient(180deg,#fdfaf6 0%,var(--bg) 100%)`
-  *(đổi tint góc phải sang xanh dương cho tương phản, vì brand đã là cam)*
-- `.sidebar` nền: `linear-gradient(165deg, rgba(255,255,255,.06), transparent 42%), #4a2f13`
-- ⚠️ Palette này thì badge `.orange` trùng brand → dùng `.blue` hoặc `.purple` để nhấn.
 
----
+Dùng kèm `background-size: 5px 5px, auto`. Thiếu dòng `background-size` thì hạt sẽ to bất thường.
 
-## Cách áp dụng
+## Chữ
 
-1. Mở `template.html`, tìm khối `:root { ... }` ở đầu `<style>`
-2. Thay 9 biến: `--bg`, `--surface-soft`, `--ink`, `--muted`, `--line`, `--brand`, `--brand-dark`, `--brand-soft`, `--shadow`
-3. Tìm `body { background: ... }` → thay gradient
-4. Tìm `.sidebar { background: ... }` → thay màu nền
-5. `--surface`, `--radius`, `--sidebar`, `--max` và các màu ngữ nghĩa: **không đổi**
+- **Body + heading:** `Georgia, "Times New Roman", "Noto Serif", serif`
+- **Nhãn nhỏ** (`.eyebrow`, `.section-kicker`, `.badge`, `.nav-label`, `.hero-stat span`, `.timeline-time`...): `Arial, Helvetica, sans-serif`
+- Heading để `font-weight: 400` + `letter-spacing` âm — chữ serif đậm sẵn, bold nữa là nặng mặt
+
+## Độ tương phản (đã đo, WCAG 2.1)
+
+| Cặp màu | Ratio | Mức |
+|---|---:|---|
+| `--ink` trên `--surface` | 12.07 | AAA |
+| `--ink` trên `--surface-soft` | 11.10 | AAA |
+| `--muted` trên `--surface` | 5.29 | AA |
+| `--muted` trên `--surface-soft` | 4.86 | AA |
+| `--brand` trên `--surface` | 5.38 | AA |
+| Chữ sidebar trên nền sidebar | 8.58 | AAA |
+
+⚠️ Đổi `--muted` sáng hơn `#655b49` là **rớt AA** trên nền `--surface-soft` (ngưỡng rất sát). Muốn đổi thì đo lại.
+
+## Muốn đổi tông khác
+
+1. Mở `template.html`, sửa khối `:root` ở đầu `<style>`
+2. Sửa thêm `.sidebar` (nền `#40372d`) vì nó không ăn theo biến
+3. Đo lại tương phản trước khi chốt — nền kem rất dễ rớt chuẩn ở chữ phụ

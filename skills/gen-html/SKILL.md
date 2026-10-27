@@ -1,6 +1,6 @@
 ---
 name: gen-html
-description: Tạo report hoặc tài liệu bằng HTML theo template UI có sẵn — self-contained 1 file, sidebar + hero + card/callout/timeline, 4 palette màu, in được PDF. Dùng khi user nói "tạo report HTML", "làm tài liệu HTML", "viết doc HTML", "gen-html", "xuất báo cáo dạng web".
+description: Tạo report hoặc tài liệu bằng HTML theo template UI có sẵn — self-contained 1 file, phong cách báo in trên giấy (vintage editorial), sidebar + hero + card/callout/timeline, in được PDF. Dùng khi user nói "tạo report HTML", "làm tài liệu HTML", "viết doc HTML", "gen-html", "xuất báo cáo dạng web".
 ---
 
 # gen-html
@@ -11,7 +11,7 @@ Dựng report / tài liệu HTML theo template chuẩn — **1 file duy nhất, 
 
 - `references/template.html` — khung đầy đủ (CSS + JS inline), có `{{PLACEHOLDER}}`
 - `references/components.md` — markup từng component
-- `references/palettes.md` — 4 bộ màu
+- `references/palettes.md` — bảng màu PAPER + texture giấy + số đo tương phản
 
 ---
 
@@ -19,7 +19,7 @@ Dựng report / tài liệu HTML theo template chuẩn — **1 file duy nhất, 
 
 ### 1. Hỏi user 2 điều (nếu chưa nói rõ)
 
-- **Màu:** `green` (mặc định) · `blue` · `purple` · `orange`
+- **Màu:** chỉ một tông PAPER (giấy ngà / mực nâu) — template set sẵn, không cần hỏi user
 - **Nội dung/dữ liệu** lấy từ đâu
 
 Không hỏi lại nếu user đã nêu trong yêu cầu.
@@ -32,7 +32,7 @@ Không hỏi lại nếu user đã nêu trong yêu cầu.
 ### 3. Dựng file
 
 1. Copy `references/template.html` sang file đích
-2. Áp palette theo `references/palettes.md` nếu không phải `green`
+2. Không phải đổi màu — template đã là PAPER. Chỉ mở `references/palettes.md` khi cần thêm thành phần mới hoặc chỉnh tông
 3. Thay toàn bộ `{{PLACEHOLDER}}`
 4. Nhân bản `<section>` cho mỗi phần, thêm `<a>` tương ứng vào sidebar nav
 5. Lấy markup component từ `references/components.md`
@@ -94,7 +94,7 @@ JS vẫn chạy bình thường — phần menu tự no-op vì `menuButton` là 
 - Scroll-spy tự highlight mục đang xem ở sidebar
 - Copy-to-clipboard + toast (chỉ cần `data-copy="<id>"` khớp `id` của `<pre>`)
 - Mobile menu, responsive 3 breakpoint (1100 / 820 / 590px)
-- `@media print` — nút "🖨️ In / lưu PDF" có sẵn trên hero
+- `@media print` — bản in sạch (ẩn sidebar, progress, toast), in bằng `Ctrl/Cmd + P`
 - `skip-link` + `aria-label` cho accessibility
 
 ## Ràng buộc
