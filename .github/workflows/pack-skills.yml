@@ -1,0 +1,34 @@
+name: Pack skills
+
+# Moi lan skills/ thay doi tren main thi dong goi lai zip va day len release "latest".
+on:
+  push:
+    branches: [main]
+    paths:
+      - "skills/**"
+      - "scripts/pack-skills.sh"
+      - ".github/workflows/pack-skills.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build zip cho tung skill
+        run: ./scripts/pack-skills.sh
+
+      - name: Day zip len release "latest"
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Release chua ton tai thi tao, co roi thi tai su dung
+          gh release view latest >/dev/null 2>&1 || gh release create latest \
+            --title "Skills - ban moi nhat" \
+            --notes "Zip cua tung skill, build tu nhanh main. Giai nen roi tha thu muc vao ~/.claude/skills/ (hoac ~/.codex/skills/)."
+
+          gh release upload latest dist/*.zip --clobber

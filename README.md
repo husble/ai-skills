@@ -103,15 +103,35 @@ Skill nào cần script thì đặt luôn trong thư mục skill đó. Nếu ski
 
 ### Bước 1 — Tải code về
 
-Chọn 1 trong 2 cách:
+Chọn 1 trong 3 cách:
 
-- **Cách dễ (không cần biết lệnh):** mở https://github.com/husble/ai-skills → bấm nút xanh **Code** → **Download ZIP** → giải nén file vừa tải.
-- **Cách nhanh (nếu máy đã có git):**
-  ```bash
-  git clone https://github.com/husble/ai-skills.git
-  ```
+**Cách 1 — Tải lẻ đúng skill mình cần (nhẹ nhất)**
 
-Sau khi tải xong, bên trong sẽ có thư mục `skills/` — mỗi thư mục con là một skill.
+Mỗi skill có file `.zip` riêng, giải nén ra là được thư mục đúng tên skill, bỏ thẳng vào thư mục ở Bước 2.
+
+| Skill | Tải về |
+|---|---|
+| `git-commit-message` | [git-commit-message.zip](https://github.com/husble/ai-skills/releases/latest/download/git-commit-message.zip) |
+| `new-pr` | [new-pr.zip](https://github.com/husble/ai-skills/releases/latest/download/new-pr.zip) |
+| `pull-request-review` | [pull-request-review.zip](https://github.com/husble/ai-skills/releases/latest/download/pull-request-review.zip) |
+| `gen-html` | [gen-html.zip](https://github.com/husble/ai-skills/releases/latest/download/gen-html.zip) |
+| `gen-images` | [gen-images.zip](https://github.com/husble/ai-skills/releases/latest/download/gen-images.zip) |
+| `gen-videos` | [gen-videos.zip](https://github.com/husble/ai-skills/releases/latest/download/gen-videos.zip) |
+| `hub-shared` | [hub-shared.zip](https://github.com/husble/ai-skills/releases/latest/download/hub-shared.zip) |
+
+Xem tất cả ở trang [Releases](https://github.com/husble/ai-skills/releases/latest). Zip được build lại tự động mỗi khi skill thay đổi, nên link luôn trỏ bản mới nhất.
+
+**Cách 2 — Tải cả bộ, không cần biết lệnh**
+
+Mở https://github.com/husble/ai-skills → bấm nút xanh **Code** → **Download ZIP** → giải nén file vừa tải.
+
+**Cách 3 — Clone (nếu máy đã có git)**
+
+```bash
+git clone https://github.com/husble/ai-skills.git
+```
+
+Với cách 2 và 3, bên trong sẽ có thư mục `skills/` — mỗi thư mục con là một skill.
 
 ### Bước 2 — Mở thư mục skill của agent
 
