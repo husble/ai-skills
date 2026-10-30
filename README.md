@@ -88,6 +88,17 @@ Giới hạn **25MB** mỗi file (script kiểm tra trước khi gửi). Link l�
 
 **Yêu cầu:** Node.js 20+ (dùng `process.loadEnvFile`) và biến `HUB_SKILL_TOKEN`.
 
+### `product-customize`
+> Phân tích xem một sản phẩm cho khách custom những gì
+
+Đưa vào **product ID** (hoặc link sản phẩm) → trả về khách được điền gì: nhập tên gì, giới hạn bao nhiêu ký tự, chọn hình gì, upload mấy ảnh, field nào chỉ hiện khi chọn cái khác.
+
+Dữ liệu đọc qua app hub, bên dưới là 3 nhà cung cấp customizer (**Customall** · **Teeinblue** · **Customily**). Mỗi bên trả một kiểu bẩn khác nhau — selector trùng lặp, field chỉ là đường kẻ, loại field không nhận dạng được, điều kiện trỏ ID thô. Script **làm sạch hết** rồi in bảng text đọc là hiểu, kèm mục ghi chú liệt kê đúng những gì đã dọn.
+
+Script Node **zero-dependency**. Có `--json` để lấy dữ liệu đã làm sạch, `--raw` để soi bản gốc khi nghi ngờ.
+
+**Yêu cầu:** Node.js 20+ và biến `HUB_SKILL_TOKEN`. Chỉ đọc được sản phẩm thuộc store của công ty.
+
 ## Cấu trúc
 
 ```
@@ -118,6 +129,7 @@ Mỗi skill có file `.zip` riêng, giải nén ra là được thư mục đún
 | `gen-images` | [gen-images.zip](https://github.com/husble/ai-skills/releases/latest/download/gen-images.zip) |
 | `gen-videos` | [gen-videos.zip](https://github.com/husble/ai-skills/releases/latest/download/gen-videos.zip) |
 | `hub-shared` | [hub-shared.zip](https://github.com/husble/ai-skills/releases/latest/download/hub-shared.zip) |
+| `product-customize` | [product-customize.zip](https://github.com/husble/ai-skills/releases/latest/download/product-customize.zip) |
 
 Xem tất cả ở trang [Releases](https://github.com/husble/ai-skills/releases/latest). Zip được build lại tự động mỗi khi skill thay đổi, nên link luôn trỏ bản mới nhất.
 
